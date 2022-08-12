@@ -1,23 +1,46 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
+// import Head from 'next/head'
 import { trpc } from '../utils/trpc'
 import { getOptionsForVote } from '../utils/getRandomPokemon'
+import { useState } from 'react'
 
 const Home: NextPage = () => {
-  const hello = trpc.useQuery(['example.hello', { text: 'from tRPC' }])
-  const [first, second] = getOptionsForVote()
+  const hello = trpc.useQuery(['pokemon.hello', { text: 'from tRPC' }])
 
-  console.log(hello?.data?.greeting)
+  const [ids, setIds] = useState(() => getOptionsForVote())
+  const [first, second] = ids
+  const firstPokemon = trpc.useQuery(['pokemon.get-by-id', { id: first }])
+  const secondPokemon = trpc.useQuery(['pokemon.get-by-id', { id: second }])
+  console.log('poki-poki: ', firstPokemon)
+  console.log('poki-greet: ', hello?.data?.hi)
+  if (firstPokemon.isLoading || secondPokemon.isLoading) return null
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">
-      <div className="p-8">{hello?.data?.greeting}</div>
       <div className="text-2xl text-center">Which Pokemon looks stronger?</div>
       <div className="p-2" />
       <div className="flex items-center justify-between max-w-2xl p-8 border rounded">
-        <div className="w-16 h-16 bg-teal-200">{first} </div>
+        <div className="flex flex-col w-64 h-64">
+          <img
+            src={firstPokemon.data?.sprites.front_default}
+            className="w-full"
+          />
+          <div className="text-xl text-center capitalize mt-[-2rem]">
+            {firstPokemon.data?.name}
+          </div>
+        </div>
         <div className="p-8">Vs</div>
-        <div className="w-16 h-16 bg-teal-200"> {second} </div>
+
+        <div className="flex flex-col w-64 h-64">
+          <img
+            src={secondPokemon.data?.sprites.front_default}
+            className="w-full"
+          />
+          <div className="text-xl text-center capitalize mt-[-2rem]">
+            {secondPokemon.data?.name}
+          </div>
+        </div>
+        <div className="p-2" />
       </div>
     </div>
   )
