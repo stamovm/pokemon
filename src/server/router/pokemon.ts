@@ -9,8 +9,8 @@ export const pokemonRouter = createRouter()
     resolve({ input }) {
       const api = new PokemonClient()
       const pokemon = api.getPokemonById(input.id)
-
-      return pokemon
+      console.log('bakend--', pokemon)
+      return { name: pokemon.name, sprites: pokemon.sprites }
     },
   })
   .query('hello', {
