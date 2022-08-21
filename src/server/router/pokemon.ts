@@ -6,10 +6,9 @@ import { PokemonClient } from 'pokenode-ts'
 export const pokemonRouter = createRouter()
   .query('get-by-id', {
     input: z.object({ id: z.number() }),
-    resolve({ input }) {
+    async resolve({ input }) {
       const api = new PokemonClient()
-      const pokemon = api.getPokemonById(input.id)
-      console.log('bakend--', pokemon)
+      const pokemon = await api.getPokemonById(input.id)
       return { name: pokemon.name, sprites: pokemon.sprites }
     },
   })
