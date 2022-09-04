@@ -20,7 +20,7 @@ export const pokemonRouter = createRouter()
       .nullish(),
     resolve({ input }) {
       return {
-        hi: `Hello fromm poki`,
+        hi: `Hello fromm pokimon`,
       }
     },
   })

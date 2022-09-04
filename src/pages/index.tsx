@@ -6,9 +6,9 @@ import { useState } from 'react'
 import { inferQueryResponse } from './api/trpc/[trpc]'
 
 const btn =
-  'inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+  'inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-lg text-xs font-medium rounded-xl text-gray-700 bg-white hover:bg-teal-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 
-type PokemonFromServer = inferQueryResponse<'get-pokemon-by-id'>
+type PokemonFromServer = inferQueryResponse<'pokemon.get-by-id'>
 
 const PokemonListing: React.FC<{
   pokemon: PokemonFromServer
