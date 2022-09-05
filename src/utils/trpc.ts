@@ -24,3 +24,7 @@ export type inferMutationOutput<
 export type inferMutationInput<
   TRouteKey extends keyof AppRouter['_def']['mutations']
 > = inferProcedureInput<AppRouter['_def']['mutations'][TRouteKey]>
+
+export type inferQueryResponse<
+  TRouteKey extends keyof AppRouter['_def']['queries']
+> = inferProcedureOutput<AppRouter['_def']['queries'][TRouteKey]>
